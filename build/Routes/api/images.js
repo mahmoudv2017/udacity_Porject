@@ -42,11 +42,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var logger_1 = __importDefault(require("../../utilities/logger"));
 var fs_1 = require("fs");
-var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
+var imageProcessing_1 = __importDefault(require("./../../utilities/imageProcessing"));
 var Router = express_1.default.Router();
 Router.get("/", logger_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var width, height, error_1;
+    var width, height, fuLL_path, reponse, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -54,37 +54,28 @@ Router.get("/", logger_1.default, function (req, res) { return __awaiter(void 0,
                 height = req.query.height;
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
+                _a.trys.push([1, 5, , 6]);
+                fuLL_path = path_1.default.resolve("./images/full/") + "/" + req.query.filename + ".jpg";
                 //checks if the file exists
-                return [4 /*yield*/, fs_1.promises.access(path_1.default.resolve('./images/full/') + "/" + req.query.filename + '.jpg')
-                    //proceeds to opening the file
-                ];
+                return [4 /*yield*/, fs_1.promises.access(fuLL_path)];
             case 2:
                 //checks if the file exists
                 _a.sent();
                 //proceeds to opening the file
-                return [4 /*yield*/, fs_1.promises.open(path_1.default.resolve('./images/thump/') + "/" + req.query.filename + '_thump.jpg', "w+")
-                    //proceeds to resizing the image and writing it to the new directory
-                ];
+                return [4 /*yield*/, fs_1.promises.readFile(path_1.default.resolve("./images/thump/") + "/" + req.query.filename + "_thump.jpg")];
             case 3:
                 //proceeds to opening the file
                 _a.sent();
-                //proceeds to resizing the image and writing it to the new directory
-                (0, sharp_1.default)(path_1.default.resolve('./images/full/') + "/" + req.query.filename + '.jpg')
-                    .resize({ width: Number(width), height: Number(height) })
-                    .toFile(path_1.default.resolve('./images/thump/') + "/" + req.query.filename + '_thump.jpg')
-                    .then(function (_) {
-                    res.sendFile(path_1.default.resolve('./images/thump/') + "/" + req.query.filename + '_thump.jpg');
-                })
-                    .catch(function (err) {
-                    res.status(304).send(err);
-                });
-                return [3 /*break*/, 5];
+                return [4 /*yield*/, (0, imageProcessing_1.default)(req.query.filename, Number(width), Number(height))];
             case 4:
+                reponse = _a.sent();
+                res.status(200).sendFile(reponse);
+                return [3 /*break*/, 6];
+            case 5:
                 error_1 = _a.sent();
                 res.status(304).send("Bad request");
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });

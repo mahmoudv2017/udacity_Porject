@@ -1,33 +1,60 @@
-import app from '../index'
-import supertest from 'supertest'
+import app from "../index";
+import supertest from "supertest";
 
 describe("tests the endpoints" , () => {
-    const request = supertest(app)
+    const request = supertest(app);
 
-    it("expects the images endpoint to throw an error" , (done) => {
-        request.get("/api/images?filename=sadnaksdn.png&width=200&height=400")
-        .then(res => {
-            expect(res.status).toEqual(304);
-            console.log(res.text)
-            done();
-        })
+
+    describe("testing the first endpoints" , () => {
+        it("expects the api endpoint" , async () => {
+            const reponse = request.get("/api");
+    
+           return expectAsync(reponse).toBeResolved();
+        });
     })
 
-    it("expects the images endpoint to throw error because of too few parameters" , (done) => {
-        request.get("/api/images?filename=sadnaksdn.png&width=200")
-        .then(res => {
-            expect(res.status).toEqual(304);
-            console.log(res.text)
-            done();
-        })
-    })
+  
+
+   describe("testing the success endpoint" , () => {
+    it("expects the images endpoint to successfully create the new resized image" , async () => {
+        const reponse = request.get("/api/images?filename=argentine&width=200&height=400");
+    
+       return  expectAsync(reponse).toBeResolved();
+        
+        });
+   })
+  
 
 
-   it("expects the images endpoint to successfully create the new resized image" , (done) => {
-        request.get("/api/images?filename=argentine&width=200&height=400")
-        .then(res => {
-            expect(res.status).toEqual(200);
-            done();
-        })
-    })
-})
+    describe("error handling endpoints" , () => {
+        it("expects the images endpoint to throw an error" , async () => {
+          const reponse = await request.get("/api/images?filename=sadnaksdn.png&width=200&height=400");
+          
+         return expect(reponse.status).toBe(304);
+
+        });
+    
+        it("expects the images endpoint to throw error because of too few parameters" , async () => {
+            const reponse = request.get("/api/images?filename=sadnaksdn.png&width=200");
+             expect((await reponse).status).toEqual(304);
+            
+          
+        });
+
+
+        it("expects the width or height if 0 to throw error" , async () => {
+            const reponse = request.get("/api/images?filename=argentine&width=0&height=400");
+             expect((await reponse).status).toEqual(304);
+            
+          
+        });
+
+        it("expects the width or height if -1 to throw error" , async () => {
+            const reponse = request.get("/api/images?filename=argentine&width=0&height=-1");
+             expect((await reponse).status).toEqual(304);
+            
+          
+        });
+    });
+   
+});
