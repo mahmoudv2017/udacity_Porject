@@ -70,7 +70,7 @@ describe("tests the endpoints", function () {
                         case 0: return [4 /*yield*/, request.get("/api/images?filename=sadnaksdn.png&width=200&height=400")];
                         case 1:
                             reponse = _a.sent();
-                            return [2 /*return*/, expect(reponse.status).toBe(304)];
+                            return [2 /*return*/, expect(reponse.status).toBe(400)];
                     }
                 });
             }); });
@@ -83,7 +83,7 @@ describe("tests the endpoints", function () {
                             _a = expect;
                             return [4 /*yield*/, reponse];
                         case 1:
-                            _a.apply(void 0, [(_b.sent()).status]).toEqual(304);
+                            _a.apply(void 0, [(_b.sent()).status]).toEqual(400);
                             return [2 /*return*/];
                     }
                 });
@@ -99,7 +99,7 @@ describe("tests the endpoints", function () {
                             _a = expect;
                             return [4 /*yield*/, reponse];
                         case 1:
-                            _a.apply(void 0, [(_b.sent()).status]).toEqual(304);
+                            _a.apply(void 0, [(_b.sent()).status]).toEqual(400);
                             return [2 /*return*/];
                     }
                 });
@@ -113,7 +113,7 @@ describe("tests the endpoints", function () {
                             _a = expect;
                             return [4 /*yield*/, reponse];
                         case 1:
-                            _a.apply(void 0, [(_b.sent()).status]).toEqual(304);
+                            _a.apply(void 0, [(_b.sent()).status]).toEqual(400);
                             return [2 /*return*/];
                     }
                 });
@@ -127,7 +127,7 @@ describe("tests the endpoints", function () {
                             _a = expect;
                             return [4 /*yield*/, reponse];
                         case 1:
-                            _a.apply(void 0, [(_b.sent()).status]).toEqual(304);
+                            _a.apply(void 0, [(_b.sent()).status]).toEqual(400);
                             return [2 /*return*/];
                     }
                 });
@@ -141,7 +141,7 @@ describe("tests the endpoints", function () {
                             _a = expect;
                             return [4 /*yield*/, reponse];
                         case 1:
-                            _a.apply(void 0, [(_b.sent()).status]).toEqual(304);
+                            _a.apply(void 0, [(_b.sent()).status]).toEqual(400);
                             return [2 /*return*/];
                     }
                 });

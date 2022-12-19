@@ -1,19 +1,25 @@
 import sharp from "sharp";
+import fs from "fs";
 import path from "path";
 
 const ImageProcess = async (
-  filename: string,
+  fullPath: string,
+  thump_path:string,
   width: number,
   height: number
 ) => {
-  const new_image =
-    path.resolve("./images/thump/") + "/" + filename + "_thump.jpg";
 
-  await sharp(path.resolve("./images/full/") + "/" + filename + ".jpg")
+  //const thump_path = path.resolve("./images/thump/") + "/" + "argentine" +"_"+width+"_"+height+".jpg";
+
+
+  await sharp(fullPath)
     .resize(width, height)
-    .toFile(new_image); //
+    .toFile(thump_path)
+    .catch(err => console.log(err)); //
 
-  return new_image;
+  return thump_path;
+
+  
 };
 
 export default ImageProcess;

@@ -41,16 +41,14 @@ function logger(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             if (!req.query.width || !req.query.height || !req.query.filename) {
-                res.status(304).send("few params");
+                res.status(400).send("few params");
             }
             else {
-                if (req.query.width == "0" ||
-                    req.query.width == "-1" ||
-                    req.query.height == "0" ||
-                    req.query.height == "-1" ||
+                if (Number(req.query.height) <= 0 ||
+                    Number(req.query.width) <= 0 ||
                     !Number(req.query.height) ||
                     !Number(req.query.width)) {
-                    res.status(304).send("Wrong Params");
+                    res.status(400).send("Wrong Params");
                 }
                 else {
                     next();

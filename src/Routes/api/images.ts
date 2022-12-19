@@ -3,6 +3,7 @@ import logger from "../../utilities/logger";
 import { promises as fs } from "fs";
 import path from "path";
 import ImageProcess from "./../../utilities/imageProcessing";
+import FileExist from "./../../utilities/fileExist";
 
 const Router = express.Router();
 
@@ -12,28 +13,44 @@ Router.get("/", logger, async (req, res) => {
   const width = req.query.width as unknown as string;
   const height = req.query.height as unknown as string;
 
-  try {
+
     const fuLL_path =
       path.resolve("./images/full/") + "/" + req.query.filename + ".jpg";
+    
+      const thump_path = path.resolve("./images/thump/") + "/" + req.query.filename +"_"+width+"_"+height+".jpg";
 
     //checks if the file exists
-    await fs.access(fuLL_path);
+    if(FileExist(thump_path)){
 
-    //proceeds to opening the file
-    await fs.readFile(
-      path.resolve("./images/thump/") + "/" + req.query.filename + "_thump.jpg"
-    );
+       
 
-    //proceeds to resizing the image and writing it to the new directory
-    const reponse = await ImageProcess(
-      req.query.filename as string,
-      Number(width),
-      Number(height)
-    );
-    res.status(200).sendFile(reponse);
-  } catch (error) {
-    res.status(304).send("Bad request");
-  }
+        res.status(200).sendFile(thump_path);
+       
+        
+
+    }
+    else{
+      if(FileExist(fuLL_path)){
+
+
+        console.log("somthing");
+        const reponse = await ImageProcess(
+          fuLL_path,
+          thump_path,
+          Number(width),
+          Number(height)
+        );
+
+        res.status(200).sendFile(reponse);
+      }else{
+        res.status(400).send("<h1>Bad Request</h1>");
+      }
+
+      
+    }
+
+   
+   
 });
 
 export default Router;

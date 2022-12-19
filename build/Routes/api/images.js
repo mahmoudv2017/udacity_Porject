@@ -41,41 +41,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var logger_1 = __importDefault(require("../../utilities/logger"));
-var fs_1 = require("fs");
 var path_1 = __importDefault(require("path"));
 var imageProcessing_1 = __importDefault(require("./../../utilities/imageProcessing"));
+var fileExist_1 = __importDefault(require("./../../utilities/fileExist"));
 var Router = express_1.default.Router();
 Router.get("/", logger_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var width, height, fuLL_path, reponse, error_1;
+    var width, height, fuLL_path, thump_path, reponse;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 width = req.query.width;
                 height = req.query.height;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 5, , 6]);
                 fuLL_path = path_1.default.resolve("./images/full/") + "/" + req.query.filename + ".jpg";
-                //checks if the file exists
-                return [4 /*yield*/, fs_1.promises.access(fuLL_path)];
+                thump_path = path_1.default.resolve("./images/thump/") + "/" + req.query.filename + "_" + width + "_" + height + ".jpg";
+                if (!(0, fileExist_1.default)(thump_path)) return [3 /*break*/, 1];
+                res.status(200).sendFile(thump_path);
+                return [3 /*break*/, 4];
+            case 1:
+                if (!(0, fileExist_1.default)(fuLL_path)) return [3 /*break*/, 3];
+                console.log("somthing");
+                return [4 /*yield*/, (0, imageProcessing_1.default)(fuLL_path, thump_path, Number(width), Number(height))];
             case 2:
-                //checks if the file exists
-                _a.sent();
-                //proceeds to opening the file
-                return [4 /*yield*/, fs_1.promises.readFile(path_1.default.resolve("./images/thump/") + "/" + req.query.filename + "_thump.jpg")];
-            case 3:
-                //proceeds to opening the file
-                _a.sent();
-                return [4 /*yield*/, (0, imageProcessing_1.default)(req.query.filename, Number(width), Number(height))];
-            case 4:
                 reponse = _a.sent();
                 res.status(200).sendFile(reponse);
-                return [3 /*break*/, 6];
-            case 5:
-                error_1 = _a.sent();
-                res.status(304).send("Bad request");
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 3:
+                res.status(400).send("<h1>Bad Request</h1>");
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); });

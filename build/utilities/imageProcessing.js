@@ -40,19 +40,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
-var path_1 = __importDefault(require("path"));
-var ImageProcess = function (filename, width, height) { return __awaiter(void 0, void 0, void 0, function () {
-    var new_image;
+var ImageProcess = function (fullPath, thump_path, width, height) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                new_image = path_1.default.resolve("./images/thump/") + "/" + filename + "_thump.jpg";
-                return [4 /*yield*/, (0, sharp_1.default)(path_1.default.resolve("./images/full/") + "/" + filename + ".jpg")
-                        .resize(width, height)
-                        .toFile(new_image)];
+            case 0: 
+            //const thump_path = path.resolve("./images/thump/") + "/" + "argentine" +"_"+width+"_"+height+".jpg";
+            return [4 /*yield*/, (0, sharp_1.default)(fullPath)
+                    .resize(width, height)
+                    .toFile(thump_path)
+                    .catch(function (err) { return console.log(err); })];
             case 1:
+                //const thump_path = path.resolve("./images/thump/") + "/" + "argentine" +"_"+width+"_"+height+".jpg";
                 _a.sent(); //
-                return [2 /*return*/, new_image];
+                return [2 /*return*/, thump_path];
         }
     });
 }); };
