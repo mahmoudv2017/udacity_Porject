@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "prettier": "prettier --config .prettierrc ./build/**/*.js --write",
+    "prettier": "prettier --config .prettierrc ./src/**/*.ts --write",
     "dev": "nodemon ./build/.",
     "lint": "eslint ./src/**/*.ts",
     "test": "npm run build & jasmine"

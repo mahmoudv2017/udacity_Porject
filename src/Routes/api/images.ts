@@ -13,7 +13,8 @@ Router.get("/", logger, async (req, res) => {
   const height = req.query.height as unknown as string;
 
   try {
-    const fuLL_path = path.resolve("./images/full/") + "/" + req.query.filename + ".jpg";
+    const fuLL_path =
+      path.resolve("./images/full/") + "/" + req.query.filename + ".jpg";
 
     //checks if the file exists
     await fs.access(fuLL_path);
