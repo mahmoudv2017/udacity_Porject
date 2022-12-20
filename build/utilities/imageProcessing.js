@@ -41,18 +41,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
 var ImageProcess = function (fullPath, thump_path, width, height) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: 
-            //const thump_path = path.resolve("./images/thump/") + "/" + "argentine" +"_"+width+"_"+height+".jpg";
-            return [4 /*yield*/, (0, sharp_1.default)(fullPath)
-                    .resize(width, height)
-                    .toFile(thump_path)
-                    .catch(function (err) { return console.log(err); })];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, (0, sharp_1.default)(fullPath).resize(width, height).toFile(thump_path)];
             case 1:
-                //const thump_path = path.resolve("./images/thump/") + "/" + "argentine" +"_"+width+"_"+height+".jpg";
                 _a.sent(); //
                 return [2 /*return*/, thump_path];
+            case 2:
+                error_1 = _a.sent();
+                return [2 /*return*/, error_1];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

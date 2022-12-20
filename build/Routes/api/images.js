@@ -53,7 +53,14 @@ Router.get("/", logger_1.default, function (req, res) { return __awaiter(void 0,
                 width = req.query.width;
                 height = req.query.height;
                 fuLL_path = path_1.default.resolve("./images/full/") + "/" + req.query.filename + ".jpg";
-                thump_path = path_1.default.resolve("./images/thump/") + "/" + req.query.filename + "_" + width + "_" + height + ".jpg";
+                thump_path = path_1.default.resolve("./images/thump/") +
+                    "/" +
+                    req.query.filename +
+                    "_" +
+                    width +
+                    "_" +
+                    height +
+                    ".jpg";
                 if (!(0, fileExist_1.default)(thump_path)) return [3 /*break*/, 1];
                 res.status(200).sendFile(thump_path);
                 return [3 /*break*/, 4];
