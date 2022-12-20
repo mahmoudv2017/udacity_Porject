@@ -1,11 +1,11 @@
 
 ## To Start the Project
-# npm install
-# npm start
-# the server will be hosted on PORT = 5000 by default
+1. npm install
+2. npm start
+3. the server will be hosted on PORT = 5000 by default
 
-## start Route
-# http://localhost:5000/api
+## Start Route
+ http://localhost:5000/api
 
 ## Success Route
-# http://localhost:5000/api/images?filename=argentine&width=200&height=400
+ http://localhost:5000/api/images?filename=argentine&width=200&height=400
