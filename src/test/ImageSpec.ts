@@ -2,6 +2,8 @@ import ImageProcess from "./../utilities/imageProcessing";
 import path from "path";
 import app from "../index";
 import supertest from "supertest";
+import FileExist from "../utilities/fileExist";
+
 
 describe("testing the Image Endpoints" , () => {
     const request = supertest(app);
@@ -19,6 +21,10 @@ describe("testing the Image Endpoints" , () => {
           700 +
           ".jpg";
     
+        it("expects the images are cached", async () => {
+          expect(FileExist(output_dir)).toBeTrue();
+        });
+
         it("expects the imageProcessing(Full_image_path , output_dir , 600 , 700) to sucsseed in resizing the image", async () => {
           expect(await ImageProcess(Full_image_path, output_dir, 600, 700)).toEqual(
             output_dir

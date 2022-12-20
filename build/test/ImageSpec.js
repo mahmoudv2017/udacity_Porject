@@ -43,6 +43,7 @@ var imageProcessing_1 = __importDefault(require("./../utilities/imageProcessing"
 var path_1 = __importDefault(require("path"));
 var index_1 = __importDefault(require("../index"));
 var supertest_1 = __importDefault(require("supertest"));
+var fileExist_1 = __importDefault(require("../utilities/fileExist"));
 describe("testing the Image Endpoints", function () {
     var request = (0, supertest_1.default)(index_1.default);
     describe("testing the success endpoint", function () {
@@ -53,6 +54,12 @@ describe("testing the Image Endpoints", function () {
             "_" +
             700 +
             ".jpg";
+        it("expects the images are cached", function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                expect((0, fileExist_1.default)(output_dir)).toBeTrue();
+                return [2 /*return*/];
+            });
+        }); });
         it("expects the imageProcessing(Full_image_path , output_dir , 600 , 700) to sucsseed in resizing the image", function () { return __awaiter(void 0, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
