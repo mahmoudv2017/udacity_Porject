@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-types */
+
 
 import express from "express";
 
 async function logger(
   req: express.Request,
   res: express.Response,
-  next: Function
+  next: express.NextFunction
 ) {
   if (!req.query.width || !req.query.height || !req.query.filename) {
     res.status(400).send("few params");

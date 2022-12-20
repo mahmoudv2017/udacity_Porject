@@ -1,7 +1,6 @@
 import app from "../index";
 import supertest from "supertest";
 
-
 describe("tests the endpoints", () => {
   const request = supertest(app);
 
@@ -12,7 +11,4 @@ describe("tests the endpoints", () => {
       return expectAsync(reponse).toBeResolved();
     });
   });
-
-
- 
 });
